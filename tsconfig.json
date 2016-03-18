@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "outDir": "./",
+    "experimentalDecorators": true
+  },
+  "files": [
+    "src/Bartleby.ts",
+    "src/HealthStatus.ts",
+    "src/LeadershipManager.ts",
+    "src/BartlebyClass.ts"
+  ]
+}

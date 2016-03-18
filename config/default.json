@@ -1,0 +1,7 @@
+{
+  "Bartleby": {
+    "health port": 5480,
+    "consul service": "Bartleby",
+    "leader transfer minimum secs": 5
+  }
+}

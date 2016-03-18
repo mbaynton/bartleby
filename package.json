@@ -1,0 +1,19 @@
+{
+  "name": "ipfin",
+  "version": "0.1.1",
+  "description": "IP address failover initiator for the Vultr.com API based on Consul health checks",
+  "main": "ipfin.js",
+  "dependencies": {
+    "bluebird": "^3.3.4",
+    "config": "^1.19.0",
+    "consul": "^0.24.0",
+    "inversify": "^2.0.0-alpha.3",
+    "reflect-metadata": "^0.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike Baynton <mike@mbaynton.com>",
+  "license": "MIT"
+}
