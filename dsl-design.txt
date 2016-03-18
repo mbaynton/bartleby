@@ -1,0 +1,39 @@
+# Before colon is tests.
+# Tests can contain Service selectors and Node selectors on the lhs, a binary operator, and conditions on the rhs.
+# The item tested is the last selector specified, so Service["abc"].Node tests for nodes having service abc, while
+# Node["s1"].Service["abc"] tests the abc service on node s1.
+# Conditions are "passing", "warning", or "critical"
+# After colon is reaction(s).
+# Indentation is significant.
+
+Node["edge1"].Service["tangledupinfood"] < passing:
+  Node["edge2"].Service["tangledupinfood"] = passing:
+    Vultr.attachIP("123.456.789.0", Node["edge2"])
+  default:
+    Vultr.attachIP("123.456.789.0", Node["edge1"])
+
+
+*** FUTURE: 
+- Support quantified tests (atleast, atmost)
+- Support state unchanged for n seconds in tests
+- Support selection by tag, placeholder vars for selected service(s) 
+- Support aliasing reaction sets
+***
+
+atleast 2 (Service[abc] < passing):
+  
+atmost 0 (Node < passing) for 10 s:
+  all (Service = passing):
+    Mail("bofh@example.com", "All nodes and services up.")
+  default:
+    Mail("bofh@example.com", "All nodes up, but service(s) not healthy.")
+
+
+Node["edge1"].Service[tag="edge http"] < passing:
+  Node["edge2"].$service = passing:
+    Vultr.attachIP($service, Node["edge2"])
+  default:
+    Vultr.attachIP($service, Node["edge1"])
+
+
+  

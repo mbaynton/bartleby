@@ -93,7 +93,7 @@ function ourServiceHealthStatus(checksResult) {
     if (Array.isArray(checksResult) && checksResult.length) {
         // Find the data for our node
         var nodeName = BartlebyClass_1.BartlebyClass.getMyConsulNodeName();
-        for (var i = 0; i < checksResult; i++) {
+        for (var i = 0; i < checksResult.length; i++) {
             if (checksResult[i]['Node'] == nodeName) {
                 checksResult = checksResult[i];
                 break;
