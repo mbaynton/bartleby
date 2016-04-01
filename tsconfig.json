@@ -6,10 +6,7 @@
     "outDir": "./",
     "experimentalDecorators": true
   },
-  "files": [
-    "src/Bartleby.ts",
-    "src/HealthStatus.ts",
-    "src/LeadershipManager.ts",
-    "src/BartlebyClass.ts"
+  "exclude": [
+    "node_modules"
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "ipfin",
+  "name": "Bartleby",
   "version": "0.1.1",
   "description": "IP address failover initiator for the Vultr.com API based on Consul health checks",
   "main": "ipfin.js",
@@ -10,7 +10,9 @@
     "inversify": "^2.0.0-alpha.3",
     "reflect-metadata": "^0.1.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -7,7 +7,7 @@ a leader and notifies registered callbacks about leadership changes.
 /// <reference path='../declarations/node.d.ts' />
 import * as os from "os";
 import * as Promise from "bluebird";
-import { BartlebyClass } from "./BartlebyClass";
+import { BartlebyClass } from "./Bartleby/Bartleby";
 // npm modules lacking Typescript typedefs
 import consul = require("consul");
 consul = consul({'promisify': Promise.fromCallback});

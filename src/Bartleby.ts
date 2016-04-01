@@ -6,8 +6,8 @@ import "reflect-metadata";
 import kernel from "./inversify.config";
 import * as http from "http";
 
-import {BartlebyClass} from "./BartlebyClass";
-import { IHealthStatus, HealthCode } from "./HealthStatus";
+import {Bartleby, HealthStatus } from "./Bartleby/Bartleby";
+import { ISelfHealthStatus } from "./SelfHealthStatus";
 import { ILeadershipManager } from "./LeadershipManager";
 // npm modules lacking Typescript typedefs
 import consul = require("consul");
@@ -53,16 +53,16 @@ if (healthCheckDefined) {
 }
 
 // Start health monitor controller
-var currHealthStatus = kernel.get<IHealthStatus>("IHealthStatus");
+var currHealthStatus = kernel.get<ISelfHealthStatus>("ISelfHealthStatus");
 
 // health server
 var healthServer = http.createServer(function(request, response) {
     var httpCode : number = 500;
     switch (currHealthStatus.getCode()) {
-        case HealthCode.warning:
+        case HealthStatus.warning:
             httpCode = 429; // Consul HTTP check regards this as warning
             break;
-        case HealthCode.ok:
+        case HealthStatus.passing:
             httpCode = 200;
             break;
         default:
@@ -100,7 +100,7 @@ if (healthCheckDefined) {
 function ourServiceHealthStatus(checksResult:any) : string {
     if (Array.isArray(checksResult) && checksResult.length) {
         // Find the data for our node
-        var nodeName = BartlebyClass.getMyConsulNodeName();
+        var nodeName = Bartleby.getMyConsulNodeName();
         for (var i : number = 0; i < checksResult.length; i++) {
             if (checksResult[i]['Node'] == nodeName) {
                 checksResult = checksResult[i];

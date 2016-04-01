@@ -2,6 +2,13 @@
   "Bartleby": {
     "health port": 5480,
     "consul service": "Bartleby",
-    "leader transfer minimum secs": 5
+    "leader transfer minimum secs": 5,
+    "Rules" : {
+      "Builder": {
+        "BRSFile": {
+          "path": "config/rules.brs"
+        }
+      }
+    }
   }
 }

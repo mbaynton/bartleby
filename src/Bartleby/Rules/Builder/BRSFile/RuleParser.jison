@@ -1,4 +1,6 @@
-/* Lexical grammar, language grammar, and semantic actions to parse and process bartleby's configuration language. For jison parser generator */
+/* Lexical grammar, language grammar, and semantic actions to parse and process bartleby's configuration language.
+For jison parser generator.
+*/
 
 /* lexical grammar */
 %lex
@@ -50,9 +52,14 @@ string_literal
 
 selector
     : SELECTOR_CLASS
-      {$$ = $1}
+      {$$ = new yy.Rules.Selector($1 == 'Node' ? yy.Rules.CatalogType.Node : yy.Rules.CatalogType.Service)}
     | SELECTOR_CLASS '[' string_literal ']'
       {$$ = $1 + ' called ' + $3}
+    ;
+
+health_status
+    : HEALTH_STATUS
+      { $$ = yy.HealthStatus[$1] }
     ;
 
 comparison_operator
@@ -63,9 +70,9 @@ comparison_operator
     ;
 
 test
-    : selector comparison_operator HEALTH_STATUS
-      {$$ = 'test: ' + $1 + $2}
-    | selector '.' selector comparison_operator HEALTH_STATUS
+    : selector comparison_operator health_status
+      { $$ = new yy.Rules.Rule($1, $2, $3) }
+    | selector '.' selector comparison_operator health_status
       {$$ = 'test: ' + $1 + $2}
     ;
 
@@ -102,8 +109,9 @@ reactions
 
 ruleset
     : test '{' ruleset '}'
-      {$$ = $1 + ' and rule '}
+      {$$ = $1 }
     | test '{' reactions '}'
+      { $$ = $1 }
     ;
 
 /* 
@@ -112,5 +120,9 @@ and a ruleset.
 */
 config
     : ruleset
+      { $$ = [$1] }
     | config ruleset
+      { $1.push($2);
+        $$ = $1;
+      }
     ;
